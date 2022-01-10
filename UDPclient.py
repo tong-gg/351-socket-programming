@@ -3,9 +3,10 @@ from socket import *
 
 def main():
     serverName = 'localhost'
-    serverPort = 12000
+    serverPort = 3027
     clientSocket = socket(AF_INET, SOCK_DGRAM)
 
+    print("=== FATONG Heart Disease Prediction ===")
     print('Provide the following information by integer')
 
     while(1) :
@@ -105,7 +106,7 @@ def main():
     clientSocket.sendto(information, (serverName, serverPort))
     modifiedInformation, serverAddress = clientSocket.recvfrom(2048) 
 
-    print(modifiedInformation.decode())
+    print("\nYour heart disease prediction result: ", modifiedInformation.decode())
     clientSocket.close()
 
 if __name__ == "__main__":
