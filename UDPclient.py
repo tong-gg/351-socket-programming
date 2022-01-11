@@ -1,4 +1,7 @@
 import json
+import os
+import platform
+from datetime import datetime
 from socket import *
 
 def main():
@@ -103,6 +106,16 @@ def main():
     information = json.dumps({'Age' : age, 'Sex' : sex, 'Chest pain type' : chest_pain_type, 'BP' : bp, 'Cholesterol' : cholesterol, 'FBS over 120' : fbs, 'EKG results' : ekg_result, 'Max HR' : max_hr, 'Exercise angina' : exercise_angina, 
     'ST depression' : st_depression, 'Slope of ST' : slope_of_st, 'Number of vessels fluro' : number_of_vessels_fluro, 'Thallium' : thallium}).encode('utf-8')
 
+    response_headers = {
+        'status_code': 200,
+        'action' : 'PRT (PREDICT) DATASET',
+        'host': os.name + '/' + platform.system() + '/' + platform.release(),
+        'time' : datetime.now(),
+        'feature_set' : 13,
+        'model' : 'Decision tree'
+    }
+
+    clientSocket.sendto(response_headers, (serverName, serverPort))
     clientSocket.sendto(information, (serverName, serverPort))
     modifiedInformation, serverAddress = clientSocket.recvfrom(2048) 
 
