@@ -12,8 +12,8 @@ def formatMsgUtil(dict_msg):
     msg = ""
     for key in dict_msg:
         msg += "{key}: {value}\r\n".format(key=key, value=dict_msg[key])
-    
-    print(msg)
+
+    msg += "data_length: {msg_size}\r\n".format(msg_size = str(len(dict_msg['result'].encode('utf-8'))))
     return msg
 
 def responseHeader(payload, code):
