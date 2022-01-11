@@ -60,9 +60,14 @@ def startServer(serverPort):
     while True:
         message, clientAddress = serverSocket.recvfrom(2048)
         print('Connected!')
-        print('=== Information received ===')
-        print(message.decode())
         payload = json.loads(message.decode())
+
+        print('=== Information received ===\n')
+        print('=== Request MSG ===')
+        print(payload[0])
+        print()
+        print(payload[1])
+
         feature = payload[0]
         header = payload[1]
 

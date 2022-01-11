@@ -119,10 +119,11 @@ def main():
 
     clientSocket.sendto(information, (serverName, serverPort))
     modifiedInformation, serverAddress = clientSocket.recvfrom(2048) 
-    print(modifiedInformation.decode())
-    result = modifiedInformation.decode().split('\n')[-2].split(' ')[1]
+
+    result = modifiedInformation.decode().split('\n')[-3].split(' ')[1]
     print("\nYour heart disease prediction result:", result)
     clientSocket.close()
+    print('Connection closed...')
 
 if __name__ == "__main__":
     main()
