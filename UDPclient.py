@@ -107,19 +107,19 @@ def main():
     'ST depression' : st_depression, 'Slope of ST' : slope_of_st, 'Number of vessels fluro' : number_of_vessels_fluro, 'Thallium' : thallium}
     
     response_headers_raw = {
-        'status_code': 200,
         'action' : 'PRT (PREDICT) DATASET',
         'host': os.name + '/' + platform.system() + '/' + platform.release(),
         'time' : datetime.now().strftime("%m/%d/%Y, %H:%M:%S"),
         'feature_set' : 13,
-        'model' : 'Decision tree'
+        'model' : 'Decision tree',
+        'data_length': "{feature_size}\r\n".format(feature_size = len(json.dumps(features).encode('utf-8')))
     }
 
     information = json.dumps([features, response_headers_raw]).encode('utf-8')
 
     clientSocket.sendto(information, (serverName, serverPort))
     modifiedInformation, serverAddress = clientSocket.recvfrom(2048) 
-
+    print(modifiedInformation.decode())
     result = modifiedInformation.decode().split('\n')[-2].split(' ')[1]
     print("\nYour heart disease prediction result:", result)
     clientSocket.close()
